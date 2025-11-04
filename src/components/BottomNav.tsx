@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { House, BookOpen, Compass, Handshake, Star } from "phosphor-react";
+import { House, BookOpen, Compass, Star } from "phosphor-react";
 import QuranPage from "./QuranPage";
 import QiblaPage from "./QiblaPage";
 import AsmaPage from "./AsmaPage";
@@ -9,7 +9,7 @@ const tabs = [
   { name: "Quran", icon: BookOpen },
   { name: "Qibla", icon: Compass },
   { name: "Asma", icon: Star },
-  { name: "Dua", icon: Handshake },
+  // { name: "Dua", icon: Handshake },
 ];
 
 const BottomTabBar = () => {
@@ -23,8 +23,7 @@ const BottomTabBar = () => {
         return <QiblaPage />;
       case "Asma":
         return <AsmaPage />;
-      case "Dua":
-        return <div className="p-4 text-center">Dua Page</div>;
+
       default:
         return <div className="p-4 text-center">Home Page</div>;
     }
