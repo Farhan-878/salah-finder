@@ -4,7 +4,7 @@ import { format, parse, differenceInMinutes, isAfter } from "date-fns";
 import { CloudSun, Sun, Cloud, CloudMoon, Moon } from "phosphor-react";
 import { formatTo12Hour } from "../utils/formatTime";
 import { getCurrentPrayerProgress } from "../utils/getCurrentPrayer";
-import { playAzan } from "../utils/playAzan";
+// import { playAzan } from "../utils/playAzan";
 
 // min into hours min 
 const formatTimeLeft = (minutes: number) => {
