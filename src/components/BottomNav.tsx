@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { House, BookOpen, Compass, Star } from "phosphor-react";
 import QuranPage from "./QuranPage";
-import QiblaPage from "./QiblaPage";
-import AsmaPage from "./AsmaPage";
+// import QiblaPage from "./QiblaPage";
+// import AsmaPage from "./AsmaPage";
 
 const tabs = [
   { name: "Home", icon: House },
@@ -19,10 +19,10 @@ const BottomTabBar = () => {
     switch (active) {
       case "Quran":
         return <QuranPage />;
-      case "Qibla":
-        return <QiblaPage />;
-      case "Asma":
-        return <AsmaPage />;
+      // case "Qibla":
+      // return <QiblaPage />;
+      // case "Asma":
+      // return <AsmaPage />;
 
       default:
         return <div className="p-4 text-center">Home Page</div>;
