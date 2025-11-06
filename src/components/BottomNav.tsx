@@ -3,6 +3,7 @@ import { House, BookOpen, Compass, Star } from "phosphor-react";
 import QuranPage from "./QuranPage";
 import QiblaPage from "./QiblaPage";
 import AsmaPage from "./AsmaPage";
+import QuranAudioPlayer from "./QuranAudio";
 
 const tabs = [
   { name: "Home", icon: House },
@@ -25,7 +26,7 @@ const BottomTabBar = () => {
         return <AsmaPage />;
 
       default:
-        return <div className="p-4 text-center">Home Page</div>;
+        return <QuranAudioPlayer />;
     }
   };
 
