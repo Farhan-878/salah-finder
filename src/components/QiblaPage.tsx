@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import direction from '../assets/Qibla-arrow.jpg'
 
+
 const QiblaCompassPage: React.FC = () => {
     const [qiblaDirection, setQiblaDirection] = useState<number | null>(null);
-    const [compassHeading, setCompassHeading] = useState<number>(0);
+    const [userDirection, setUserDirection] = useState<number>(0);
     const [error, setError] = useState<string | null>(null);
 
-    // 🔹 Get user location and fetch Qibla direction
+    // Get user's geolocation and fetch Qibla direction
     useEffect(() => {
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(
@@ -20,24 +21,20 @@ const QiblaCompassPage: React.FC = () => {
                         setQiblaDirection(data.data.direction);
                         // eslint-disable-next-line @typescript-eslint/no-unused-vars
                     } catch (err) {
-                        setError("Failed to fetch Qibla direction.");
+                        setError("Failed to fetch Qibla direction");
                     }
                 },
-                () => setError("Unable to access location.")
+                () => setError("Unable to access location")
             );
         } else {
-            setError("Geolocation not supported by your browser.");
+            setError("Geolocation not supported by your browser");
         }
     }, []);
 
-    // 🔹 Detect device orientation (Compass rotation)
+    // Track device compass (rotation)
     useEffect(() => {
         const handleOrientation = (event: DeviceOrientationEvent) => {
-            if (event.absolute && event.alpha !== null) {
-                setCompassHeading(event.alpha);
-            } else if (event.alpha !== null) {
-                setCompassHeading(event.alpha);
-            }
+            if (event.alpha !== null) setUserDirection(event.alpha);
         };
 
         window.addEventListener("deviceorientationabsolute", handleOrientation, true);
@@ -49,88 +46,60 @@ const QiblaCompassPage: React.FC = () => {
         };
     }, []);
 
-    if (error) {
+    if (error)
         return <p style={{ textAlign: "center", color: "red" }}>{error}</p>;
-    }
 
-    if (qiblaDirection === null) {
+    if (qiblaDirection === null)
         return <p style={{ textAlign: "center" }}>Fetching Qibla direction...</p>;
-    }
 
-    // 🔹 Calculate relative rotation (Qibla - Compass)
-    const rotation = qiblaDirection - compassHeading;
+    const rotation = qiblaDirection - userDirection;
 
     return (
         <div
             style={{
                 height: "100vh",
                 display: "flex",
-                flexDirection: "column",
                 justifyContent: "center",
                 alignItems: "center",
-                background: "#f9fafb",
-                fontFamily: "sans-serif",
+                flexDirection: "column",
+                background: "#f3f4f6",
             }}
         >
-            <h2 style={{ marginBottom: "16px", color: "#111827" }}>🧭 Live Qibla Compass</h2>
+            <h2 style={{ marginBottom: "20px" }}>🧭 Qibla Compass</h2>
 
-            {/* Compass Circle */}
             <div
                 style={{
                     position: "relative",
-                    width: "260px",
-                    height: "260px",
+                    width: "220px",
+                    height: "220px",
                     borderRadius: "50%",
-                    border: "10px solid #6366f1",
+                    border: "8px solid #6366f1",
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
                     background: "white",
-                    boxShadow: "0 0 20px rgba(99,102,241,0.2)",
+                    boxShadow: "0 0 20px rgba(99, 102, 241, 0.3)",
                 }}
             >
-                {/* Qibla Pointer */}
-                {/* <div
-                    style={{
-                        position: "absolute",
-                        width: "6px",
-                        height: "100px",
-                        background: "#ef4444",
-                        borderRadius: "3px",
-                        transform: `rotate(${rotation}deg) translateY(-50px)`,
-                        transformOrigin: "bottom center",
-                        transition: "transform 0.3s ease",
-                    }}
-                ></div> */}
-
-                {/* Kaaba Icon */}
                 <img
                     src={direction}
                     alt="Kaaba"
                     style={{
                         position: "absolute",
-                        width: "45px",
-                        height: "45px",
+                        width: "50px",
+                        height: "50px",
                         borderRadius: "50%",
-                        transform: `rotate(${rotation}deg) translateY(-100px)`,
+                        transform: `rotate(${rotation}deg) translateY(-90px)`,
                         transformOrigin: "center center",
-                        transition: "transform 0.3s ease",
+                        transition: "transform 0.5s ease",
                     }}
                 />
-
-                {/* North Label */}
                 <span style={{ fontWeight: "bold", color: "#111827" }}>N</span>
             </div>
 
-            {/* Degree Display */}
-            <div style={{ marginTop: "20px", textAlign: "center" }}>
-                <p style={{ fontSize: "18px", color: "#1f2937" }}>
-                    📍 Compass Heading: <b>{compassHeading.toFixed(1)}°</b>
-                </p>
-                <p style={{ fontSize: "18px", color: "#1f2937" }}>
-                    🕋 Qibla Direction: <b>{qiblaDirection.toFixed(1)}°</b> from North
-                </p>
-            </div>
+            <p style={{ marginTop: "20px", color: "#4b5563" }}>
+                Qibla Direction: <b>{qiblaDirection.toFixed(2)}°</b> from North
+            </p>
         </div>
     );
 };
