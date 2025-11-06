@@ -21,6 +21,7 @@ const QuranAudioPlayer: React.FC = () => {
         fetch("https://api.alquran.cloud/v1/surah")
             .then((res) => res.json())
             .then((data) => {
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 const surahList = data.data.map((s: any) => ({
                     number: s.number,
                     name: s.name,
@@ -104,7 +105,7 @@ const QuranAudioPlayer: React.FC = () => {
             </div>
 
             {/* Ayah Selector */}
-            {/* <div style={{ marginBottom: "10px" }}>
+            <div style={{ marginBottom: "10px" }}>
                 <label style={{ fontWeight: "bold", marginRight: "8px" }}>Ayah:</label>
                 <select
                     value={selectedAyah}
@@ -122,7 +123,7 @@ const QuranAudioPlayer: React.FC = () => {
                         </option>
                     ))}
                 </select>
-            </div> */}
+            </div>
 
             {/* Bitrate Selector */}
             <div style={{ marginBottom: "10px" }}>
