@@ -3,6 +3,7 @@ import axios from "axios";
 import { MapPin, MagnifyingGlass } from "phosphor-react";
 import { usePrayerFetcher } from "../hooks/usePrayerFetcher";
 import { usePrayerStore } from "../store/usePrayerStore";
+import logo from '../assets/logo-salah-fav.png'
 
 const TopBar = () => {
   const [location, setLocation] = useState("Location not selected");
@@ -82,43 +83,78 @@ const TopBar = () => {
 
   return (
     <div className="flex flex-col lg:flex-row justify-between items-center p-4 gap-3">
-      <img src="/logo.png" alt="Logo" className="h-8 lg:ml-15" />
+      <img src={logo} alt="Logo" className="h-18 lg:ml-15" />
 
-      <div className="flex flex-wrap items-center gap-3">
+      <div className="flex flex-wrap items-center justify-center gap-4 w-full">
         {location === "Location not selected" ? (
           <>
+            {/* Detect Location Button */}
             <button
               onClick={handleDetectLocation}
-              className="bg-purple-600 text-white text-sm font-medium px-4 py-2 rounded-lg shadow hover:bg-purple-700 transition"
+              className="flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 to-indigo-500 text-white text-sm font-semibold px-5 py-2.5 rounded-xl shadow-md hover:shadow-lg hover:from-purple-700 hover:to-indigo-600 transition-all duration-200"
             >
-              {isFetching ? "Detecting..." : "Detect Location"}
+              {isFetching ? (
+                <>
+                  <svg
+                    className="animate-spin h-4 w-4 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 00-8 8z"
+                    ></path>
+                  </svg>
+                  Detecting...
+                </>
+              ) : (
+                "📍 Detect Location"
+              )}
             </button>
 
-            <div className="flex items-center bg-white border rounded-lg shadow-sm overflow-hidden">
+            {/* Manual City Input */}
+            <div className="flex items-center bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden w-full sm:w-auto max-w-sm">
               <input
                 type="text"
                 placeholder="Enter city name..."
                 value={manualCity}
                 onChange={(e) => setManualCity(e.target.value)}
-                className="px-3 py-2 text-sm outline-none"
+                className="flex-1 px-4 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
               />
               <button
                 onClick={handleManualSearch}
-                className="bg-purple-600 text-white px-3 py-2 hover:bg-purple-700 transition"
+                className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 transition-all duration-200 flex items-center justify-center"
               >
                 <MagnifyingGlass size={18} />
               </button>
             </div>
           </>
         ) : (
-          <div className="flex items-center gap-2 bg-white px-3 py-2 rounded-lg shadow-sm border lg:mr-15">
-            <MapPin size={20} className="text-gray-600" />
-            <span className="text-sm font-medium text-gray-700">
+          <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-2xl shadow border border-gray-200 w-fit">
+            <MapPin size={20} className="text-purple-600" />
+            <span className="text-sm font-medium text-gray-800 truncate max-w-[200px] sm:max-w-none">
               {location}
             </span>
+            <button
+              onClick={() => setLocation("Location not selected")}
+              className="ml-2 text-xs text-gray-500 hover:text-red-500 transition"
+            >
+              ✕
+            </button>
           </div>
         )}
       </div>
+
     </div>
   );
 };

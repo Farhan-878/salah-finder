@@ -31,24 +31,38 @@ const AsmaPage: React.FC = () => {
     if (loading) return <div className="p-4 text-center">Loading Asma Al-Husna...</div>;
 
     return (
-        <div className="p-4 max-h-[85vh] overflow-y-scroll bg-gradient-to-b from-purple-50 to-white">
-            <h2 className="text-2xl font-bold text-purple-700 text-center mb-4">
-                Asma Al-Husna (99 Names of Allah)
-            </h2>
+        <div className="min-h-screen bg-gradient-to-b from-emerald-50 via-white to-emerald-100 p-6 flex flex-col items-center">
+            <div className="text-center mb-10">
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-emerald-700 mb-2 tracking-tight">
+                    🌿 Asma Al-Husna
+                </h2>
+                <p className="text-gray-600 text-sm sm:text-base">
+                    The 99 Beautiful Names of Allah (الأسماء الحسنى)
+                </p>
+            </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 w-full max-w-6xl">
                 {names.map((item) => (
                     <div
                         key={item.number}
-                        className="bg-white shadow-md rounded-xl p-4 border text-center hover:scale-105 transition-transform duration-300"
+                        className="group bg-white border border-emerald-100 shadow-sm hover:shadow-lg hover:border-emerald-300 rounded-2xl p-5 text-center transition-all duration-300 transform hover:-translate-y-1"
                     >
-                        <h3 className="text-xl font-bold text-purple-700">{item.name}</h3>
-                        <p className="text-sm text-gray-500 italic">{item.transliteration}</p>
-                        <p className="text-gray-600 text-sm mt-1">{item.en.meaning}</p>
+                        <div className="relative">
+                            <div className="absolute inset-0 bg-emerald-100/40 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
+                            <h3 className="text-2xl font-bold text-emerald-700 relative z-10">
+                                {item.name}
+                            </h3>
+                        </div>
+                        <p className="text-sm text-gray-500 italic mt-1">{item.transliteration}</p>
+                        <p className="text-gray-700 text-sm mt-2 font-medium">
+                            {item.en.meaning}
+                        </p>
+                        <p className="mt-3 text-xs text-gray-400">#{item.number}</p>
                     </div>
                 ))}
             </div>
         </div>
+
     );
 };
 
