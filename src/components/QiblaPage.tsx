@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import direction from '../assets/Qibla-arrow.jpg'
+// import React, { useEffect, useState } from "react";
+// import direction from '../assets/Qibla-arrow.jpg'
 
 
 const QiblaCompassPage: React.FC = () => {
